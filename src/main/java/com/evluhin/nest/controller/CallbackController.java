@@ -26,7 +26,7 @@ public class CallbackController {
 	@RequestMapping("/callback")
 	public void callback(@RequestParam("code") String code, HttpServletResponse response) throws IOException {
 
-		String url = properties.getRawTokenUrl();
+		String url = properties.getTokenUrl();
 
 
 		RestTemplate rest = new RestTemplate();
@@ -39,19 +39,20 @@ public class CallbackController {
 		map.add("grant_type", "authorization_code");
 
 		TokenResponse result = rest.postForObject(url, map, TokenResponse.class);
-		System.out.println(result);
 
 		response.addCookie(cookieService.createCookie(result.getAccess_token()));
-
 
 		response.sendRedirect("/");
 	}
 
 
+	/**
+	 * Token response Dto.
+	 */
 	static class TokenResponse {
 
-		String access_token;
-		Long expires_in;
+		private String access_token;
+		private Long expires_in;
 
 		public TokenResponse() {
 		}

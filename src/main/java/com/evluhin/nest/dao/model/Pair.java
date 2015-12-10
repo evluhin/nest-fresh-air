@@ -5,7 +5,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
@@ -25,9 +24,6 @@ public class Pair {
 	@OneToOne
 	@JoinColumn(name = "thermostat_id", nullable = false)
 	private Thermostat thermostat;
-
-	@ManyToOne
-	private Structure structure;
 
 	public Long getId() {
 		return id;
@@ -54,11 +50,4 @@ public class Pair {
 	}
 
 
-	public Structure getStructure() {
-		return structure;
-	}
-
-	public void setStructure(Structure structure) {
-		this.structure = structure;
-	}
 }

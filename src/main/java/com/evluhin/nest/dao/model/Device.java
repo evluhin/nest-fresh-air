@@ -6,7 +6,6 @@ import javax.persistence.MappedSuperclass;
 
 /**
  */
-
 @MappedSuperclass
 public class Device extends NestEntity {
 

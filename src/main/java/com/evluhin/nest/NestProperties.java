@@ -2,8 +2,6 @@ package com.evluhin.nest;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
-import java.text.MessageFormat;
-
 /**
  */
 @ConfigurationProperties("nest.product")
@@ -17,9 +15,8 @@ public class NestProperties {
 	 * Product secret.
 	 */
 	private String secret;
-	private String authUrlTemplate;
-	private String tokenUrlTemplate;
-	private String rawTokenUrl;
+	private String authUrl;
+	private String tokenUrl;
 
 	public String getId() {
 		return this.id;
@@ -37,35 +34,19 @@ public class NestProperties {
 		this.secret = secret;
 	}
 
-	public String getAuthUrlTemplate() {
-		return authUrlTemplate;
-	}
-
-	public void setAuthUrlTemplate(String authUrlTemplate) {
-		this.authUrlTemplate = authUrlTemplate;
-	}
-
-	public String getTokenUrlTemplate() {
-		return tokenUrlTemplate;
-	}
-
-	public void setTokenUrlTemplate(String tokenUrlTemplate) {
-		this.tokenUrlTemplate = tokenUrlTemplate;
-	}
-
 	public String getAuthUrl() {
-		return MessageFormat.format(getAuthUrlTemplate(), getId());
+		return authUrl;
 	}
 
-	public String getTokenUrl(String code) {
-		return MessageFormat.format(getTokenUrlTemplate(), code);
+	public void setAuthUrl(String authUrl) {
+		this.authUrl = authUrl;
 	}
 
-	public String getRawTokenUrl() {
-		return rawTokenUrl;
+	public String getTokenUrl() {
+		return tokenUrl;
 	}
 
-	public void setRawTokenUrl(String rawTokenUrl) {
-		this.rawTokenUrl = rawTokenUrl;
+	public void setTokenUrl(String rawTokenUrl) {
+		this.tokenUrl = rawTokenUrl;
 	}
 }
