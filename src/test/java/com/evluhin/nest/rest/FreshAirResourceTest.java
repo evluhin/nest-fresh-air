@@ -79,7 +79,6 @@ public class FreshAirResourceTest {
 			   .andExpect(status().isOk())
 			   .andReturn().getResponse().getContentAsString();
 
-		ArgumentCaptor<NestDataDto> captor = ArgumentCaptor.forClass(NestDataDto.class);
 		verify(service).update(captor.capture());
 
 		NestDataDto value = captor.getValue();
