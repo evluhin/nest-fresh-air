@@ -23,6 +23,13 @@ public class CallbackController {
 	@Autowired
 	private CookieService cookieService;
 
+	/**
+	 * Process callback from Nest.
+	 * Uses {@code code} parameter to get the authentication token.
+	 * @param code OAuth code
+	 * @param response autowired response.
+	 * @throws IOException
+	 */
 	@RequestMapping("/callback")
 	public void callback(@RequestParam("code") String code, HttpServletResponse response) throws IOException {
 
