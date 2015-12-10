@@ -27,7 +27,7 @@ public class Device extends NestEntity {
 		return location;
 	}
 
-	@JsonProperty("where_id")
+
 	public void setLocation(String location) {
 		this.location = location;
 	}
@@ -36,11 +36,5 @@ public class Device extends NestEntity {
 	@Override
 	public String getId() {
 		return super.getId();
-	}
-
-	@JsonProperty("device_id")
-	@Override
-	public void setId(String id) {
-		super.setId(id);
 	}
 }

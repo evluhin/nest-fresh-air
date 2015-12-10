@@ -1,0 +1,22 @@
+h3 {
+    white-space: nowrap;
+}
+.ok .a {
+    background-color:#dff0d8;
+}
+.warning .a {
+    background-color:#fcf8e3;
+}
+.emergency .a {
+    background-color:#f2dede;
+}
+
+.emergency .t {
+    background-color:#dff0d8;
+}
+.warning .t {
+    background-color:#dff0d8;
+}
+.ok .t {
+    background-color: gray;
+}

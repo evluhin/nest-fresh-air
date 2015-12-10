@@ -134,7 +134,7 @@ jQuery(document).ready(function ($) {
             }
         }
 
-        var STRUCTURE_TEMPLATE = "<h3 id='${structure_id}'>${name}</h3>"
+        var STRUCTURE_TEMPLATE = "<h3 id='${structure_id}'>${name}</h3><hr>"
         var PAIR_TEMPLATE = "<h3 id='${id}'><span id='${alarm.device_id}'>${alarm.name}<span class='badge a'/></span> - <span id='${thermostat.device_id}'>${thermostat.name}<span class='badge t'/></span></h3>"
 
         /**

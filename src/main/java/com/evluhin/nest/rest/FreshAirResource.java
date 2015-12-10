@@ -2,11 +2,10 @@ package com.evluhin.nest.rest;
 
 import com.evluhin.nest.FreshAirService;
 import com.evluhin.nest.NestProperties;
-import com.evluhin.nest.dao.model.Alarm;
 import com.evluhin.nest.dao.model.Structure;
-import com.evluhin.nest.dao.model.Thermostat;
-import com.evluhin.nest.dto.Data;
-import com.evluhin.nest.dto.SettingsDto;
+import com.evluhin.nest.dto.NestDataDto;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,33 +19,18 @@ import java.util.List;
 @RestController
 @RequestMapping("/api")
 public class FreshAirResource {
-
+	Logger log = LoggerFactory.getLogger(FreshAirResource.class);
 	@Autowired
 	private NestProperties nestProperties;
 
 	@Autowired
 	private FreshAirService service;
 
-	@RequestMapping(value = "/data",method = RequestMethod.POST)
-	public List<Structure> settings(@RequestBody Data data) {
-		return service.update(data);
+	@RequestMapping(value = "/data", method = RequestMethod.POST)
+	public List<Structure> settings(@RequestBody NestDataDto nestData) {
+		List<Structure> structures = service.update(nestData);
+
+		log.info("saved structures: {}", structures);
+		return structures;
 	}
-
-
-	@RequestMapping(value = "/structures", method = RequestMethod.POST)
-	public List<Structure> saveStructuresAndFind(@RequestBody List<Structure> structures) {
-		List<Structure> returned = service.organizeStructures(structures);
-		return returned;
-	}
-
-	@RequestMapping(value = "/alarms", method = RequestMethod.POST)
-	public List<Alarm> saveAlarms(@RequestBody List<Alarm> alarms) {
-		return service.saveAlarms(alarms);
-	}
-
-	@RequestMapping(value = "/thermostats", method = RequestMethod.POST)
-	public List<Thermostat> saveThermostats(@RequestBody List<Thermostat> thermostats) {
-		return service.saveThermostats(thermostats);
-	}
-
 }

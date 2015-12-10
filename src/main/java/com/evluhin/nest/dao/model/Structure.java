@@ -22,6 +22,16 @@ public class Structure extends NestEntity {
 	@OneToMany
 	private List<Pair> pairs;
 
+	public Structure() {
+	}
+
+	public Structure(String id) {
+		super(id);
+	}
+
+	public Structure(String id, String name) {
+		super(id, name);
+	}
 
 	public List<Pair> getPairs() {
 		return pairs;
@@ -36,7 +46,6 @@ public class Structure extends NestEntity {
 		return alarms;
 	}
 
-	@JsonProperty("smoke_co_alarms")
 	public void setAlarms(List<Alarm> alarms) {
 		this.alarms = alarms;
 	}
@@ -55,9 +64,4 @@ public class Structure extends NestEntity {
 		return super.getId();
 	}
 
-	@JsonProperty("structure_id")
-	@Override
-	public void setId(String id) {
-		super.setId(id);
-	}
 }

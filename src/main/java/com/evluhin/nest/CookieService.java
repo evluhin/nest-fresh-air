@@ -8,7 +8,6 @@ import javax.servlet.http.Cookie;
 /**
  * Cookie service.
  *
- * @author sevluhin.
  */
 @Component
 public class CookieService {

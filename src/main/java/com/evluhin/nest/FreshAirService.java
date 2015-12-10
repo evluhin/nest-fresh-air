@@ -9,7 +9,9 @@ import com.evluhin.nest.dao.model.Device;
 import com.evluhin.nest.dao.model.Pair;
 import com.evluhin.nest.dao.model.Structure;
 import com.evluhin.nest.dao.model.Thermostat;
-import com.evluhin.nest.dto.Data;
+import com.evluhin.nest.dto.NestDataDto;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,7 +25,7 @@ import java.util.stream.Collectors;
  */
 @Service
 public class FreshAirService {
-
+	private Logger log = LoggerFactory.getLogger(FreshAirService.class);
 	@Autowired
 	private StructureRepository structureRepository;
 
@@ -36,35 +38,27 @@ public class FreshAirService {
 	@Autowired
 	private ThermostatRepository thermostatRepository;
 
-
-	public List<Alarm> saveAlarms(List<Alarm> alarms) {
-		return alarmRepository.save(alarms);
-	}
-
-
-	public List<Thermostat> saveThermostats(List<Thermostat> thermostats) {
-		return thermostatRepository.save(thermostats);
-	}
-
-	public List<Structure> update(Data data) {
-		List<Structure> savedStructures = new ArrayList<>(data.getStructures().size());
+	public List<Structure> update(NestDataDto nestData) {
+		log.info("new data received: {}", nestData);
+		List<Structure> savedStructures = new ArrayList<>(nestData.getStructures().size());
 
 		//just save all devices, even they don't have pairs
-		List<Alarm> savedAlarms = alarmRepository.save(data.getAlarms());
-		List<Thermostat> savedThermostats = thermostatRepository.save(data.getThermostats());
+		List<Alarm> savedAlarms = alarmRepository.save(nestData.getAlarms());
+		List<Thermostat> savedThermostats = thermostatRepository.save(nestData.getThermostats());
 
-		List<Structure> structures = data.getStructures();
+		List<Structure> structures = nestData.getStructures();
 		for (Structure structure : structures) {
 
 			//convert alarm dto to entities and filter
-			List<Alarm> structureAlarms = findStructureDevice(savedAlarms, structure);
+			List<Alarm> structureAlarms = findStructureDevice(savedAlarms, structure.getAlarms());
 			structure.setAlarms(structureAlarms);
 
 			//convert thermostat dto to entities and filter
-			List<Thermostat> structureThermos = findStructureDevice(savedThermostats, structure);
+			List<Thermostat> structureThermos = findStructureDevice(savedThermostats, structure.getThermostats());
 			structure.setThermostats(structureThermos);
 
 			List<Pair> pairs = findPairs(structure);
+			log.info("pairs found: {}", pairs);
 			structure.setPairs(pairs);
 
 			Structure saved = structureRepository.save(structure);
@@ -78,12 +72,12 @@ public class FreshAirService {
 	 * Find devices within whole list of devices that are belong to a structure.
 	 *
 	 * @param devices all list of devices
-	 * @param structure structure object
+	 * @param structureDevices structure devices
 	 * @param <T> alarm or thermostat object
 	 * @return list of devices that belongs to a structure
 	 */
-	protected <T extends Device> List<T> findStructureDevice(List<T> devices, Structure structure) {
-		return devices.stream().filter(a -> structure.getAlarms().contains(a)).collect(Collectors.toList());
+	protected <T extends Device> List<T> findStructureDevice(List<T> devices, List<T> structureDevices) {
+		return devices.stream().filter(a -> structureDevices.contains(a)).collect(Collectors.toList());
 	}
 
 	/**

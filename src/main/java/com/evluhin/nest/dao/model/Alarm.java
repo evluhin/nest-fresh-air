@@ -25,7 +25,6 @@ public class Alarm extends Device {
 		return alarmState;
 	}
 
-	@JsonProperty("smoke_alarm_state")
 	public void setAlarmState(String alarmState) {
 		this.alarmState = alarmState;
 	}

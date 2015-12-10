@@ -27,7 +27,6 @@ public class Thermostat extends Device {
 		return mode;
 	}
 
-	@JsonProperty("hvac_mode")
 	public void setMode(String mode) {
 		this.mode = mode;
 	}
@@ -38,7 +37,6 @@ public class Thermostat extends Device {
 		return canHeat;
 	}
 
-	@JsonProperty("can_heat")
 	public void setCanHeat(boolean canHeat) {
 		this.canHeat = canHeat;
 	}
@@ -48,10 +46,7 @@ public class Thermostat extends Device {
 		return canCool;
 	}
 
-	@JsonProperty("can_cool")
 	public void setCanCool(boolean canCool) {
 		this.canCool = canCool;
 	}
-
-
 }

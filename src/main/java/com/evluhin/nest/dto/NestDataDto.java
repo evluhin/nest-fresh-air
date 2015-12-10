@@ -3,19 +3,20 @@ package com.evluhin.nest.dto;
 import com.evluhin.nest.dao.model.Alarm;
 import com.evluhin.nest.dao.model.Structure;
 import com.evluhin.nest.dao.model.Thermostat;
+import com.google.common.base.MoreObjects;
 
 import java.util.List;
 
 /**
- * @author sevluhin, on 10.12.15.
+ * DTO composite with updated values from Nest API.
  */
-public class Data {
+public class NestDataDto {
 
 	private List<Thermostat> thermostats;
 	private List<Alarm> alarms;
 	private List<Structure> structures;
 
-	public Data() {
+	public NestDataDto() {
 	}
 
 	public List<Thermostat> getThermostats() {
@@ -40,5 +41,14 @@ public class Data {
 
 	public void setStructures(List<Structure> structures) {
 		this.structures = structures;
+	}
+
+	@Override
+	public String toString() {
+		return MoreObjects.toStringHelper(this)
+						  .add("thermostats", thermostats)
+						  .add("alarms", alarms)
+						  .add("structures", structures)
+						  .toString();
 	}
 }
