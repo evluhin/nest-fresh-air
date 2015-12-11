@@ -7,4 +7,4 @@ ${AnsiColor.BRIGHT_YELLOW}
 ╚═╝     ╚═╝  ╚═╝╚══════╝╚══════╝╚═╝  ╚═╝    ╚═╝  ╚═╝╚═╝╚═╝  ╚═╝
 
 
-${AnsiColor.BLACK}
+${AnsiColor.DEFAULT}
